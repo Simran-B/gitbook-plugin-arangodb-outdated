@@ -1,5 +1,5 @@
 {
-  "name": "gitbook-plugin-localized-footer",
+  "name": "gitbook-plugin-localized-header",
   "version": "0.3.1",
   "engines": {
     "gitbook": ">=3.1.0"
@@ -9,16 +9,16 @@
       "hline": {
         "type": "boolean",
         "default": "true",
-        "description": "whether to include an horizontal line above the footer"
+        "description": "whether to include an horizontal line below the header"
       },
       "filename": {
         "type": "string",
-        "default": "FOOTER.md",
-        "description": "name or relative path to the footer content file of each book"
+        "default": "HEADER.md",
+        "description": "name or relative path to the header content file of each book"
       }
     }
   },
-  "description": "add a footer to each page of a gitbook, allows i10n",
+  "description": "add a header to each page of a gitbook, allows i10n",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -26,11 +26,11 @@
   "author": "noerw",
   "repository" : {
     "type" : "git",
-    "url" : "https://github.com/noerw/gitbook-plugin-localized-footer.git"
+    "url" : "https://github.com/Simran-B/gitbook-plugin-localized-header.git"
   },
   "bugs": {
-    "url": "https://github.com/noerw/gitbook-plugin-localized-footer/issues"
+    "url": "https://github.com/Simran-B/gitbook-plugin-localized-header/issues"
   },
-  "homepage": "https://github.com/noerw/gitbook-plugin-localized-footer#readme",
+  "homepage": "https://github.com/Simran-B/gitbook-plugin-localized-header#readme",
   "license": "LGPL-3.0"
 }

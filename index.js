@@ -1,19 +1,19 @@
 var fs = require('fs'),
-    footerString = '',
+    headerString = '',
     cfg,
-    hasFooterFile;
+    hasHeaderFile;
 
 module.exports = {
     hooks: {
         // called on each book & each language book
         'init': function() {
-            cfg = this.config.get('pluginsConfig.localized-footer'), _this = this;
+            cfg = this.config.get('pluginsConfig.localized-header'), _this = this;
 
             try {
                 fs.statSync(this.resolve(cfg.filename));
-                hasFooterFile = true;
+                hasHeaderFile = true;
             } catch (e) {
-                hasFooterFile = false;
+                hasHeaderFile = false;
                 return;
             }
 
@@ -24,21 +24,21 @@ module.exports = {
                     return _this.renderBlock('markdown', data);
                 }, this.log.error)
                 .then(function(html) {
-                    footerString = html;
+                    headerString = html;
                 }, this.log.error);
         },
         'page:before': function(page) {
             // append to the website renderer only
-            if (this.output.name !== 'website' || !hasFooterFile) return page;
-            page.content = page.content + '\n{% localizedfooter %}' + footerString + '{% endlocalizedfooter%}';
+            if (this.output.name !== 'website' || !hasHeaderFile) return page;
+            page.content = '\n{% localizedheader %}' + headerString + '{% endlocalizedheader%}' + page.content;
             return page;
         }
     },
     blocks: {
-        'localizedfooter': {
+        'localizedheader': {
             process: function(block) {
                 var hline = cfg.hline ? '<hr>' : '';
-                return '<div id="page-footer" class="localized-footer">' + hline + block.body + '</div>';
+                return '<div id="page-header" class="localized-header">' + block.body + hline + '</div>';
             }
         }
     }
@@ -46,7 +46,7 @@ module.exports = {
 
 function deprecationWarning(ctx) {
 
-    if (!hasFooterFile) return;
+    if (!hasHeaderFile) return;
 
     // search website.css for deprecated style selector
     ctx.readFileAsString(ctx.config.get('styles.website'))
@@ -54,10 +54,10 @@ function deprecationWarning(ctx) {
             var lines = css.split('\n');
 
             for (var i = 0; i < lines.length; i++) {
-                if (lines[i].search('#page-footer') !== -1) {
+                if (lines[i].search('#page-header') !== -1) {
                     return ctx.log.warn(
-                        '[localized-footer] the css selector \'#page-footer\'' +
-                        'is deprecated, use \'.localized-footer\' instead.'
+                        '[localized-header] the css selector \'#page-header\'' +
+                        'is deprecated, use \'.localized-header\' instead.'
                     )
                 }
             };
