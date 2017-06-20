@@ -1,7 +1,6 @@
 var fs = require('fs'),
     headerString = '',
-    cfg,
-    hasHeaderFile;
+    cfg;
 
 module.exports = {
     hooks: {
@@ -9,16 +8,7 @@ module.exports = {
         'init': function() {
             cfg = this.config.get('pluginsConfig.localized-header'), _this = this;
 
-            try {
-                fs.statSync(this.resolve(cfg.filename));
-                hasHeaderFile = true;
-            } catch (e) {
-                hasHeaderFile = false;
-                return;
-            }
-
-            deprecationWarning(this);
-
+            /*
             this.readFileAsString(cfg.filename)
                 .then(function(data) {
                     return _this.renderBlock('markdown', data);
@@ -26,11 +16,16 @@ module.exports = {
                 .then(function(html) {
                     headerString = html;
                 }, this.log.error);
+            */
+            headerString = 'This documentation is outdated. Please see the latest version here: ';
         },
         'page:before': function(page) {
             // append to the website renderer only
-            if (this.output.name !== 'website' || !hasHeaderFile) return page;
-            page.content = '\n{% localizedheader %}' + headerString + '{% endlocalizedheader%}' + page.content;
+            if (this.output.name !== 'website') return page;
+            var newPage = _this.bookRoot + page.file.path
+                .replace(/README\.md$/, 'index.html')
+                .replace(/\.md$/, '.html');
+            page.content = '\n{% localizedheader %}' + headerString + newPage + '{% endlocalizedheader%}' + page.content;
             return page;
         }
     },
@@ -43,26 +38,3 @@ module.exports = {
         }
     }
 };
-
-function deprecationWarning(ctx) {
-
-    if (!hasHeaderFile) return;
-
-    // search website.css for deprecated style selector
-    ctx.readFileAsString(ctx.config.get('styles.website'))
-        .then(function(css) {
-            var lines = css.split('\n');
-
-            for (var i = 0; i < lines.length; i++) {
-                if (lines[i].search('#page-header') !== -1) {
-                    return ctx.log.warn(
-                        '[localized-header] the css selector \'#page-header\'' +
-                        'is deprecated, use \'.localized-header\' instead.'
-                    )
-                }
-            };
-        })
-        .catch(function(err) {
-            // no style file present, ignore
-        });
-}
