@@ -22,7 +22,7 @@ module.exports = {
         'page:before': function(page) {
             // append to the website renderer only
             if (this.output.name !== 'website') return page;
-            var newPage = _this.root.replace('/devel/', '/3.1/') + page.filePath
+            var newPage = 'https://docs.arangodb.com/3.1/Manual/' + page.filePath
                 .replace(/README\.md$/, 'index.html')
                 .replace(/\.md$/, '.html');
             page.content = '\n{% localizedheader %}' + headerString + newPage + '{% endlocalizedheader%}' + page.content;
