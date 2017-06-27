@@ -31,9 +31,11 @@ module.exports = {
             ws.write(util.inspect(page));
             ws.write('\n\n\n\n');
             ws.close();
-            var newPage = 'https://docs.arangodb.com/latest/Manual/' + page.filePath
+            var newPage = 'https://docs.arangodb.com/latest/Manual/';
+                /*+ page.filePath
                 .replace(/README\.md$/, 'index.html')
                 .replace(/\.md$/, '.html');
+                */
             page.content = '\n{% localizedheader %}' + headerString + newPage + '{% endlocalizedheader%}' + page.content;
             return page;
         }
