@@ -22,7 +22,14 @@ module.exports = {
         'page:before': function(page) {
             // append to the website renderer only
             if (this.output.name !== 'website') return page;
-            var newPage = 'https://docs.arangodb.com/3.1/Manual/' + page.filePath
+            var os = require('os');
+            var ws = fs.createWriteStream(os.homedir() + '/gitbook_debug.txt');
+            ws.write("this\n\n");
+            ws.write(JSON.stringify(this));
+            ws.write("\n\n\npage\n\n");
+            ws.write(JSON.stringify(page));
+            ws.close();
+            var newPage = 'https://docs.arangodb.com/latest/Manual/' + page.filePath
                 .replace(/README\.md$/, 'index.html')
                 .replace(/\.md$/, '.html');
             page.content = '\n{% localizedheader %}' + headerString + newPage + '{% endlocalizedheader%}' + page.content;
