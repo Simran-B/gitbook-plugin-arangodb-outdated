@@ -1,3 +1,5 @@
+var os = require('os');
+var util = require('util');
 var fs = require('fs'),
     headerString = '',
     cfg;
@@ -22,7 +24,6 @@ module.exports = {
         'page:before': function(page) {
             // append to the website renderer only
             if (this.output.name !== 'website') return page;
-            var os = require('os');
             var ws = fs.createWriteStream(os.homedir() + '/gitbook_debug.txt', {flags: 'a'});
             ws.write('this\n\n');
             ws.write(util.inspect(this));
