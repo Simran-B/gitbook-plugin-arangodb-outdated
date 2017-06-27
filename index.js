@@ -25,9 +25,9 @@ module.exports = {
             var os = require('os');
             var ws = fs.createWriteStream(os.homedir() + '/gitbook_debug.txt');
             ws.write("this\n\n");
-            ws.write(JSON.stringify(this));
+            ws.write(util.inspect(this));
             ws.write("\n\n\npage\n\n");
-            ws.write(JSON.stringify(page));
+            ws.write(util.inspect(page));
             ws.close();
             var newPage = 'https://docs.arangodb.com/latest/Manual/' + page.filePath
                 .replace(/README\.md$/, 'index.html')
