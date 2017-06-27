@@ -23,11 +23,12 @@ module.exports = {
             // append to the website renderer only
             if (this.output.name !== 'website') return page;
             var os = require('os');
-            var ws = fs.createWriteStream(os.homedir() + '/gitbook_debug.txt');
-            ws.write("this\n\n");
+            var ws = fs.createWriteStream(os.homedir() + '/gitbook_debug.txt', {flags: 'a'});
+            ws.write('this\n\n');
             ws.write(util.inspect(this));
-            ws.write("\n\n\npage\n\n");
+            ws.write('\n\n\npage\n\n');
             ws.write(util.inspect(page));
+            ws.write('\n\n\n\n');
             ws.close();
             var newPage = 'https://docs.arangodb.com/latest/Manual/' + page.filePath
                 .replace(/README\.md$/, 'index.html')
