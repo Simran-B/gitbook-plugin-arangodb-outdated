@@ -8,10 +8,10 @@ module.exports = {
         'init': function() {
             cfg = this.config.get('pluginsConfig.localized-header'), _this = this;
 
-            headerString = `{% hint 'warning' %}
-This documentation is outdated. Please see the most recent version here:
-[**Latest Manual**](https://docs.arangodb.com/latest/Manual/)
-{% endhint %}`;
+            headerString = '{% hint \'warning\' %}' +
+                           'This documentation is outdated. Please see the most recent version here:' +
+                           '[**Latest Manual**](https://docs.arangodb.com/latest/Manual/)' +
+                           '{% endhint %}';
             _this.renderBlock('markdown', headerString)
                 .then(function(html) {
                     headerString = html;
