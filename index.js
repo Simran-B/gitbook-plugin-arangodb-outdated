@@ -1,5 +1,3 @@
-var os = require('os');
-var util = require('util');
 var fs = require('fs'),
     headerString = '',
     cfg;
@@ -10,42 +8,21 @@ module.exports = {
         'init': function() {
             cfg = this.config.get('pluginsConfig.localized-header'), _this = this;
 
-            /*
-            this.readFileAsString(cfg.filename)
-                .then(function(data) {
-                    return _this.renderBlock('markdown', data);
-                }, this.log.error)
+            headerString = `{% hint 'warning' %}
+This documentation is outdated. Please see the most recent version here:
+[**Latest Manual**](https://docs.arangodb.com/latest/Manual/)
+{% endhint %}`;
+            _this.renderBlock('markdown', headerString)
                 .then(function(html) {
                     headerString = html;
                 }, this.log.error);
-            */
-            headerString = 'This documentation is outdated. Please see the latest version here: ';
+
         },
         'page:before': function(page) {
             // append to the website renderer only
             if (this.output.name !== 'website') return page;
-            var ws = fs.createWriteStream(os.homedir() + '/gitbook_debug.txt', {flags: 'a'});
-            ws.write('this\n\n');
-            ws.write(util.inspect(this));
-            ws.write('\n\n\npage\n\n');
-            ws.write(util.inspect(page));
-            ws.write('\n\n\n\n');
-            ws.close();
-            var newPage = 'https://docs.arangodb.com/latest/Manual/';
-                /*+ page.filePath
-                .replace(/README\.md$/, 'index.html')
-                .replace(/\.md$/, '.html');
-                */
-            page.content = '\n{% localizedheader %}' + headerString + newPage + '{% endlocalizedheader%}' + page.content;
+            page.content = '\n' + headerString + page.content;
             return page;
-        }
-    },
-    blocks: {
-        'localizedheader': {
-            process: function(block) {
-                var hline = cfg.hline ? '<hr>' : '';
-                return '<div id="page-header" class="localized-header">' + block.body + hline + '</div>';
-            }
         }
     }
 };
