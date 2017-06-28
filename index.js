@@ -12,10 +12,11 @@ module.exports = {
                            'This documentation is outdated. Please see the most recent version here:' +
                            '[**Latest Manual**](https://docs.arangodb.com/latest/Manual/)' +
                            '{% endhint %}';
-            _this.renderBlock('markdown', headerString)
+            /*_this.renderBlock('markdown', headerString)
                 .then(function(html) {
                     headerString = html;
                 }, this.log.error);
+            */
 
         },
         'page:before': function(page) {
