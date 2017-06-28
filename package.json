@@ -1,36 +1,22 @@
 {
-  "name": "gitbook-plugin-localized-header",
-  "version": "0.3.1",
+  "name": "gitbook-plugin-arangodb-outdated",
+  "version": "0.4.0",
   "engines": {
     "gitbook": ">=3.1.0"
   },
-  "gitbook": {
-    "properties": {
-      "hline": {
-        "type": "boolean",
-        "default": "true",
-        "description": "whether to include an horizontal line below the header"
-      },
-      "filename": {
-        "type": "string",
-        "default": "HEADER.md",
-        "description": "name or relative path to the header content file of each book"
-      }
-    }
-  },
-  "description": "add a header to each page of a gitbook, allows i10n",
+  "description": "add an obsolescence note at the top of each page (hardcoded)",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "noerw",
+  "author": "Simran-B",
   "repository" : {
     "type" : "git",
-    "url" : "https://github.com/Simran-B/gitbook-plugin-localized-header.git"
+    "url" : "https://github.com/Simran-B/gitbook-plugin-arangodb-outdated.git"
   },
   "bugs": {
-    "url": "https://github.com/Simran-B/gitbook-plugin-localized-header/issues"
+    "url": "https://github.com/Simran-B/gitbook-plugin-arangodb-outdated/issues"
   },
-  "homepage": "https://github.com/Simran-B/gitbook-plugin-localized-header#readme",
-  "license": "LGPL-3.0"
+  "homepage": "https://github.com/Simran-B/gitbook-plugin-arangodb-outdated#readme",
+  "license": "MIT"
 }
