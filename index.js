@@ -8,10 +8,10 @@ module.exports = {
         'init': function() {
             cfg = this.config.get('pluginsConfig.localized-header'), _this = this;
 
-            headerString = '{% hint \'warning\' %}' +
-                           'This documentation is outdated. Please see the most recent version here:' +
-                           '[**Latest Manual**](https://docs.arangodb.com/latest/Manual/)' +
-                           '{% endhint %}';
+            headerString = '{% hint \'warning\' %}\n' +
+                           'This documentation is outdated. Please see the most recent version here:\n' +
+                           '[**Latest Manual**](https://docs.arangodb.com/latest/Manual/)\n' +
+                           '{% endhint %}\n\n';
             /*_this.renderBlock('markdown', headerString)
                 .then(function(html) {
                     headerString = html;
@@ -22,7 +22,7 @@ module.exports = {
         'page:before': function(page) {
             // append to the website renderer only
             if (this.output.name !== 'website') return page;
-            page.content = '\n' + headerString + page.content;
+            page.content = headerString + page.content;
             return page;
         }
     }
