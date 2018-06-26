@@ -1,8 +1,8 @@
 {
   "name": "gitbook-plugin-arangodb-outdated",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "engines": {
-    "gitbook": ">=3.1.0"
+    "gitbook": ">=3.2.0"
   },
   "description": "add an obsolescence note at the top of each page (hardcoded)",
   "main": "index.js",
