@@ -1,4 +1,3 @@
-var fs = require('fs');
 var note = '';
 var version = '';
 
@@ -6,7 +5,7 @@ module.exports = {
     hooks: {
         // called on each book & each language book
         'init': function() {
-            var versionMajorMinor = /(^v?\d+\.\d+)/.exec(book.version);
+            var versionMajorMinor = /(^v?\d+\.\d+)/.exec(this.book.version);
             if (versionMajorMinor && versionMajorMinor[1]) {
                 version = versionMajorMinor[1];
             }
