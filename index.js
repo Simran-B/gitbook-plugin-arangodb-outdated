@@ -25,7 +25,7 @@ module.exports = {
             }
             if (eolDate) {
                 var currentDate = new Date().toISOString();
-                if (currentDate >= date) {
+                if (currentDate >= eolDate) {
                     note += ' reached End of Life (EOL) on ' + eolDate + ' and is no longer supported.\n\n';
                 } else {
                     note += ' reaches End of Life (EOL) on ' + eolDate + ' and will no longer be supported.\n\n';
