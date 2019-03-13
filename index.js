@@ -1,5 +1,6 @@
 var note = '';
 var version = '';
+var eolDate = '';
 
 module.exports = {
     book: {
@@ -15,10 +16,24 @@ module.exports = {
             if (versionMajorMinor && versionMajorMinor[1]) {
                 version = versionMajorMinor[1];
             }
-            note = '{% hint \'warning\' %}\n'
+            eolDate = this.config.get('pluginsConfig.arangodb-outdated.eolDate');
+            note = '{% hint \'warning\' %}\n';
             if (version) {
-                note += 'ArangoDB ' + version + ' reached End of Life (EOL) and is no longer supported.\n\n'
+                note += 'ArangoDB ' + version;
+            } else {
+                note += 'This version of ArangoDB';
             }
+            if (eolDate) {
+                var currentDate = new Date().toISOString();
+                if (currentDate >= date) {
+                    note += ' reached End of Life (EOL) on ' + eolDate + ' and is no longer supported.\n\n';
+                } else {
+                    note += ' reaches End of Life (EOL) on ' + eolDate + ' and will no longer be supported.\n\n';
+                }
+            } else {
+                note += ' reached End of Life (EOL) and is no longer supported.\n\n';
+            }
+            
             note += 'This documentation is outdated. Please see the most recent version here:\n' +
                     '<a href="https://docs.arangodb.com/latest/Manual/" class="latest-docs"><strong>Latest Manual</strong></a>\n' +
                     '{% endhint %}\n\n';
